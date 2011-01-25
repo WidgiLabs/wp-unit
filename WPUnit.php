@@ -3,7 +3,7 @@
 Plugin Name: WP-Unit
 Description: Unit Test Development
 Version: 1.0
-Author: WidgiLabs Team
+Author: WidgiLabs team
 Author URI: http://widgilabs.com
 /usr/local/php5/bin:/Users/aaires/Projects/android/sdk:/usr/local/mysql/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin:/usr/local/git/bin:/usr/local/bin:/sw/bin:/sw/sbin:/usr/local/bin
 
@@ -66,18 +66,20 @@ function manage_page()
 		
 		$result = new PHPUnit_Framework_TestResult; 
 		$printer = new PHPUnit_TextUI_ResultPrinter;
-		$result = wptest_run_tests($classes, @$opts['t']);	
+		list ($result, $printer) = wptest_run_tests($classes, @$opts['t']);	
 		
-		wptest_print_result($result);
+		wptest_print_result($printer,$result);
 	
 	}
 
 }
 
+
+
+	
+
 	
 /**********************************************Wordpress Stuff ****************************/
-// Taken from wp-testlib
-
 // simple functions for loading and running tests
 /*This was retrieve from the unit test framework done by Wordpress*/
 function wptest_get_all_test_files($dir) {
@@ -138,14 +140,14 @@ function wptest_run_tests($classes, $classname='')
 	$result = new PHPUnit_Framework_TestResult; 
 	
 	require_once('PHPUnit/TextUI/ResultPrinter.php');
+	
+	$printer = new PHPUnit_TextUI_ResultPrinter(NULL,true,true);
+	$result->addListener($printer);
 
-	return $suite->run($result);
+	return array($suite->run($result), $printer);
 }
 
-/*end WordPress stuff*/
-
-// Parse the results
-function wptest_print_result(PHPUnit_Framework_TestResult $result) {
+function wptest_print_result(PHPUnit_TextUI_ResultPrinter $printer, PHPUnit_Framework_TestResult $result) {
 
 		
 	$pass = $result->passed();
@@ -270,6 +272,43 @@ function print_row($test, $function,$status)
 	</td>';
 	
 }
+
+/**
+ * Return and/or display the time from the page start to when function is called.
+ *
+ * You can get the results and print them by doing:
+ * <code>
+ * $nTimePageTookToExecute = timer_stop();
+ * echo $nTimePageTookToExecute;
+ * </code>
+ *
+ * Or instead, you can do:
+ * <code>
+ * timer_stop(1);
+ * </code>
+ * which will do what the above does. If you need the result, you can assign it to a variable, but
+ * most cases, you only need to echo it.
+ *
+ * @since 0.71
+ * @global int $timestart Seconds and Microseconds added together from when timer_start() is called
+ * @global int $timeend  Seconds and Microseconds added together from when function is called
+ *
+ * @param int $display Use '0' or null to not echo anything and 1 to echo the total time
+ * @param int $precision The amount of digits from the right of the decimal to display. Default is 3.
+ * @return float The "second.microsecond" finished time calculation
+ */
+//function timer_stop( $display = 0, $precision = 3 ) { // if called like timer_stop(1), will echo $timetotal
+//	global $timestart, $timeend;
+//	$mtime = microtime();
+//	$mtime = explode( ' ', $mtime );
+//	$timeend = $mtime[1] + $mtime[0];
+//	$timetotal = $timeend - $timestart;
+//	$r = ( function_exists( 'number_format_i18n' ) ) ? number_format_i18n( $timetotal, $precision ) : number_format( $timetotal, $precision );
+//	if ( $display )
+//		echo $r;
+//	return $r;
+//}
+/*end WordPress stuff*/
 
 
 

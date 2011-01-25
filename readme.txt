@@ -3,13 +3,13 @@ Contributors: aaires, nunomorgadinho
 Donate link: http://www.widgilabs.com
 Tags: unit-testing, phpunit
 Requires at least: 3.0
-Tested up to: 3.0
-Stable tag: 1.1
+Tested up to: 3.0.4
+Stable tag: 2.0
 
 == Description ==
 
 Enables you to create unit tests for your plugins, run and check the results in a centralized way.
-It depends on phpunit so you must install it before you use this plugin.
+It uses phpunit.
 
 Its based on the WordPress automated system but distributed as a plugin. Also it does not require a new database and a new configuration file so when you create your unit tests pay special attention to your database access so you keep a consistent database.
 
@@ -30,8 +30,14 @@ None yet.
 
 == Changelog ==
 
-== Upgrade Notice == 
+1.2 Bundle phpunit.
+
+1.1 Initial version
+
+== Upgrade Notice ==
+
+None.
 
 == Screenshots ==
 
-
+None.
