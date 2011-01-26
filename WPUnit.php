@@ -1,12 +1,10 @@
 <?php 
 /*
 Plugin Name: WP-Unit
-Description: Unit Test Development
-Version: 1.0
+Description: Enables you to create unit tests for your plugins, run and check the results in a centralized way.
+Version: 2.0
 Author: WidgiLabs team
 Author URI: http://widgilabs.com
-/usr/local/php5/bin:/Users/aaires/Projects/android/sdk:/usr/local/mysql/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin:/usr/local/git/bin:/usr/local/bin:/sw/bin:/sw/sbin:/usr/local/bin
-
 */
 
 define( 'WP_UNIT_DIR', WP_PLUGIN_DIR.'/'.plugin_basename(dirname(__FILE__)) );
