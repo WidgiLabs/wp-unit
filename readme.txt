@@ -9,7 +9,7 @@ Stable tag: 2.0
 == Description ==
 
 Enables you to create unit tests for your plugins, run and check the results in a centralized way.
-It uses phpunit.
+Since version 2.0 it has phpunit bundled in so all you need to get started with unit testing is to install this plugin.
 
 Its based on the WordPress automated system but distributed as a plugin. Also it does not require a new database and a new configuration file so when you create your unit tests pay special attention to your database access so you keep a consistent database.
 
@@ -30,7 +30,7 @@ None yet.
 
 == Changelog ==
 
-1.2 Bundle phpunit.
+2.0 Bundle phpunit.
 
 1.1 Initial version
 
