@@ -1,0 +1,8 @@
+.passing-test td {
+    color: green;
+}
+
+.failing-test td {
+    color: red;
+    background-color: #FF9999
+}
