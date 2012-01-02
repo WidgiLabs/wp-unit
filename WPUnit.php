@@ -13,7 +13,7 @@ define('DIR_TESTCASE', WP_UNIT_DIR.'/testcase');
 $currdir = getcwd();
 
 //fixes php unit installation problems
-ini_set('include_path', ini_get('include_path') . PATH_SEPARATOR . ABSPATH . 'wp-content/plugins/wp-unit');
+ini_set('include_path', ini_get('include_path') . PATH_SEPARATOR . dirname( __FILE__ ) );
 
 
 //require_once('wp-load.php');
