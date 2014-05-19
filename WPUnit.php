@@ -33,6 +33,14 @@ function wp_unit_add_pages(){
 	
 	$page = add_menu_page('Plugin Unit Testing', 'Unit Testing', 'administrator', 'unittests', 'manage_page');
 	add_submenu_page('unittests', $title_menu, $title_menu, 'administrator', 'unittests', 'manage_page');	
+	
+	add_action('admin_head-' . $page, 'wp_unit_head');
+}
+
+function wp_unit_head()
+{
+    $myStyleFile = plugins_url('style.css', __FILE__);
+    echo "<link rel='stylesheet' href='" . $myStyleFile ."' type='text/css' media='all' />";
 }
 
 function manage_page()
@@ -160,7 +168,6 @@ function wptest_print_result(PHPUnit_TextUI_ResultPrinter $printer, PHPUnit_Fram
 	$entire_test = $result->wasSuccessful();
 	if($entire_test)
 		$success = "successfully";	
-	//print_r($pass);
 	?>
 		<h2>Test Results</h2>
 		<p>The test suite finished <?php echo $success ?>.<br/>
@@ -214,20 +221,7 @@ function wptest_print_result(PHPUnit_TextUI_ResultPrinter $printer, PHPUnit_Fram
 	  		          	$var = explode('::',$testName);
 						$testname=$var[0];
 						$function=$var[1];
-			          	echo
-						'<tr class="alternate author-self status-publish iedit" valign="top">
-						<td class="test-title column-title">
-						<strong>'.$testname.'</strong>
-						</td>
-						<td class="function column-status">
-						<strong>'.$function.'</strong>
-						</td>
-						<td class="status column-status">
-						<strong>failed</strong>
-						</td>
-			          	<td class="message column-status">
-						<strong>'.$failure_msg.'</strong>
-						</td>';								  			          	
+						print_row($testname, $function, "failed", $failure_msg);
 				 	}
 				 }				 
 			?>
@@ -254,21 +248,26 @@ function arrange_results($array,$status){
 }
 function print_row($test, $function,$status)
 {
+    $colorStyle = " passing-test";
+    if($status != "passed") {
+        $colorStyle = " failing-test";
+    }
+
 	echo
-	'<tr class="alternate author-self status-publish iedit" valign="top">
-	<td class="test-title column-title">
-	<strong>'.$test.'</strong>
-	</td>
-	<td class="function column-status">
-	<strong>'.$function.'</strong>
-	</td>
-	<td class="status column-status">
-	<strong>'.$status.'</strong>
-	</td>
-	<td class="message column-status">
-	<strong></strong>
-	</td>';
-	
+	'<tr class="alternate author-self status-publish iedit' . $colorStyle . '" valign="top">
+	    <td class="test-title column-title">
+	        <strong>'.$test.'</strong>
+	    </td>
+	    <td class="function column-status">
+	        <strong>'.$function.'</strong>
+	    </td>
+	    <td class="status column-status">
+	        <strong>'.$status.'</strong>
+	    </td>
+	    <td class="message column-status">
+	        <strong>'.$message.'</strong>
+	    </td>
+	 </tr>';
 }
 
 /**
